@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Phone Availability Check</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <form id="registrationForm">
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone">
+        <span id="phone-status"></span>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            $('#phone').on('input', function() {
+                var phone = $(this).val();
+                if (phone.length > 0) {
+                    $.ajax({
+                        url: 'check_phone.php',
+                        type: 'POST',
+                        data: { phone: phone },
+                        success: function(response) {
+                            $('#phone-status').text(response);
+                        }
+                    });
+                } else {
+                    $('#phone-status').text('');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
